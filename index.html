@@ -290,6 +290,62 @@
             }
 
             preload(){
+                var progressBar = this.add.graphics();
+                var progressBox = this.add.graphics();
+                progressBox.fillStyle(0x222222, 0.8);
+                progressBox.fillRect(240, 270, 320, 50);
+                
+                var width = this.cameras.main.width;
+                var height = this.cameras.main.height;
+                var loadingText = this.make.text({
+                    x: width / 2,
+                    y: height / 2 - 50,
+                    text: 'Loading...',
+                    style: {
+                        font: '20px monospace',
+                        fill: '#ffffff'
+                    }
+                });
+                loadingText.setOrigin(0.5, 0.5);
+                
+                var percentText = this.make.text({
+                    x: width / 2,
+                    y: height / 2 - 5,
+                    text: '0%',
+                    style: {
+                        font: '18px monospace',
+                        fill: '#ffffff'
+                    }
+                });
+                percentText.setOrigin(0.5, 0.5);
+                
+                var assetText = this.make.text({
+                    x: width / 2,
+                    y: height / 2 + 50,
+                    text: '',
+                    style: {
+                        font: '18px monospace',
+                        fill: '#ffffff'
+                    }
+                });
+    
+                assetText.setOrigin(0.5, 0.5);
+                
+                this.load.on('progress', function (value) {
+                    percentText.setText(parseInt(value * 100) + '%');
+                    progressBar.clear();
+                    progressBar.fillStyle(0xffffff, 1);
+                    progressBar.fillRect(250, 280, 300 * value, 30);
+                });
+                
+    
+                this.load.on('complete', function () {
+                    progressBar.destroy();
+                    progressBox.destroy();
+                    loadingText.destroy();
+                    percentText.destroy();
+                });
+
                 this.load.spritesheet('animhorse', horsedynamicURI, { frameWidth: 114, frameHeight: 106 });
                 this.load.spritesheet('animperro', perrodynamicURI, { frameWidth: 98, frameHeight: 95 });
                 this.load.spritesheet('animconejo', conejodynamicURI, { frameWidth: 96, frameHeight: 96 });
@@ -318,67 +374,46 @@
                 this.textures.addBase64('conejostatic', conejostaticURI);
                 this.textures.addBase64('horsestatic', horsestaticURI);
                 this.textures.addBase64('background', backgroundURI);
-                var progressBar = this.add.graphics();
-            var progressBox = this.add.graphics();
-            progressBox.fillStyle(0x222222, 0.8);
-            progressBox.fillRect(240, 270, 320, 50);
-            
-            var width = this.cameras.main.width;
-            var height = this.cameras.main.height;
-            var loadingText = this.make.text({
-                x: width / 2,
-                y: height / 2 - 50,
-                text: 'Loading...',
-                style: {
-                    font: '20px monospace',
-                    fill: '#ffffff'
-                }
-            });
-            loadingText.setOrigin(0.5, 0.5);
-            
-            var percentText = this.make.text({
-                x: width / 2,
-                y: height / 2 - 5,
-                text: '0%',
-                style: {
-                    font: '18px monospace',
-                    fill: '#ffffff'
-                }
-            });
-            percentText.setOrigin(0.5, 0.5);
-            
-            var assetText = this.make.text({
-                x: width / 2,
-                y: height / 2 + 50,
-                text: '',
-                style: {
-                    font: '18px monospace',
-                    fill: '#ffffff'
-                }
-            });
- 
-            assetText.setOrigin(0.5, 0.5);
-            
-            this.load.on('progress', function (value) {
-                percentText.setText(parseInt(value * 100) + '%');
-                progressBar.clear();
-                progressBar.fillStyle(0xffffff, 1);
-                progressBar.fillRect(250, 280, 300 * value, 30);
-            });
-            
- 
-            this.load.on('complete', function () {
-                progressBar.destroy();
-                progressBox.destroy();
-                loadingText.destroy();
-                percentText.destroy();
-            });
+                this.textures.addBase64('zonas', zonasURI);
+                this.textures.addBase64('transparentsquare', transparentsquareURI);
+                this.textures.addBase64('recuadrorojo', recuadrorojoURI);
+                this.textures.addBase64('recuadroverde', recuadroverdeURI);
+                
+                this.textures.addBase64('matchtext', matchtextURI);
+                this.textures.addBase64('andtext', andtextURI);
+                this.textures.addBase64('connecttext', connecttextURI);
+                this.textures.addBase64('emojitext', emojitextURI);
+                this.textures.addBase64('emoji1face1', emoji1face1URI);
+                this.textures.addBase64('emoji2face1', emoji2face1URI);
+                this.textures.addBase64('emoji3face1', emoji3face1URI);
+                this.textures.addBase64('logo', logoURI);
+                this.textures.addBase64('playnowbtt', playnowbttURI);
+
+                this.textures.addBase64('particle1', particle1URI);
+                this.textures.addBase64('particle2', particle2URI);
+                this.textures.addBase64('particle3', particle3URI);
+                this.textures.addBase64('fail', failURI);
+
+                this.textures.addBase64('corn', cornURI);
+                this.textures.addBase64('apple', appleURI);
+                this.textures.addBase64('chips', chipsURI);
+                this.textures.addBase64('sandwitch', sandwitchURI);
+                this.textures.addBase64('berenjena', berenjenaURI);
+                this.textures.addBase64('watermelon', watermelonURI);
+                this.textures.addBase64('berrys', berrysURI);
+                this.textures.addBase64('frutilla', frutillaURI);
+                this.textures.addBase64('hamburguer', hamburguerURI);
+                this.textures.addBase64('pizza', pizzaURI);
+                this.textures.addBase64('carrot', carrotURI);
+                this.textures.addBase64('brocoli', brocoliURI);
+                this.textures.addBase64('papel', papelURI);
+              
             
 
             }
 
             create(){
-                this.input.stopPropagation();
+                
                 this.scene.switch('sceneA');
             }
 
@@ -402,7 +437,7 @@
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 this.initSound(this);
                 //this.cameras.main.setBackgroundColor('0xbababa');
-                this.textures.on('addtexture', function () {
+                
                     background2=this.add.image(360, 640, 'backgroundblanco').setAlpha(1);;
                     //background = this.add.image(370, 640, 'background').setAlpha(0);;
                     puntos1 = this.add.image(231, 174, 'puntos').setAlpha(0);;
@@ -567,44 +602,12 @@
 
                     this.animationTimeLines(this);
                     //taptopTL.play();
-                }, this);
+                
                 
 
 
 
-                this.textures.addBase64('zonas', zonasURI);
-                this.textures.addBase64('transparentsquare', transparentsquareURI);
-                this.textures.addBase64('recuadrorojo', recuadrorojoURI);
-                this.textures.addBase64('recuadroverde', recuadroverdeURI);
-                
-                this.textures.addBase64('matchtext', matchtextURI);
-                this.textures.addBase64('andtext', andtextURI);
-                this.textures.addBase64('connecttext', connecttextURI);
-                this.textures.addBase64('emojitext', emojitextURI);
-                this.textures.addBase64('emoji1face1', emoji1face1URI);
-                this.textures.addBase64('emoji2face1', emoji2face1URI);
-                this.textures.addBase64('emoji3face1', emoji3face1URI);
-                this.textures.addBase64('logo', logoURI);
-                this.textures.addBase64('playnowbtt', playnowbttURI);
 
-                this.textures.addBase64('particle1', particle1URI);
-                this.textures.addBase64('particle2', particle2URI);
-                this.textures.addBase64('particle3', particle3URI);
-                this.textures.addBase64('fail', failURI);
-
-                this.textures.addBase64('corn', cornURI);
-                this.textures.addBase64('apple', appleURI);
-                this.textures.addBase64('chips', chipsURI);
-                this.textures.addBase64('sandwitch', sandwitchURI);
-                this.textures.addBase64('berenjena', berenjenaURI);
-                this.textures.addBase64('watermelon', watermelonURI);
-                this.textures.addBase64('berrys', berrysURI);
-                this.textures.addBase64('frutilla', frutillaURI);
-                this.textures.addBase64('hamburguer', hamburguerURI);
-                this.textures.addBase64('pizza', pizzaURI);
-                this.textures.addBase64('carrot', carrotURI);
-                this.textures.addBase64('brocoli', brocoliURI);
-                this.textures.addBase64('papel', papelURI);
 
                 this.input.on('pointermove', function (pointer) {
 
